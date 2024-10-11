@@ -10,8 +10,8 @@ public class Main {
         dataBase = new DataBase();
         System.out.println("Welcome to Library!");
 
-        int exit = 0;
-        while (exit == 0) {
+        int exit;
+        //while (exit == 0) {
             System.out.println(
                     "0. Exit\n" +
                     "1. Login\n" +
@@ -20,50 +20,53 @@ public class Main {
             int answer = scan.nextInt();
 
             switch(answer) {
-                case 0: exit = 1; break;
                 case 1: login(); break;
-                case 2: newUser(); break;
+                case 2: newUser(); login(); break;
                 default:
                     System.out.println("Not a valid option!");
             }
-        }
+        //}
     }
 
     private static void login() {
-        System.out.println("Enter phone number:");
-        String phoneNumber = scan.next();
-        System.out.println("Enter email:");
-        String email = scan.next();
-        int answer = dataBase.login(phoneNumber, email);
+        System.out.println("Enter login:");
+        String login = scan.next();
+        System.out.println("Enter password:");
+        String password = scan.next();
+        int answer = dataBase.login(login, password);
         if (answer != -1) {
             User usr = dataBase.getUser(answer);
-            System.out.println("Welcome " + usr.getName());
-            usr.menu();
+            System.out.println("\n==Welcome " + usr.getName() + "==\n");
+            usr.menu(dataBase, usr);
         } else {
-            System.out.println("User not found!");
+            System.out.println("Error user not found!");
         }
     }
 
     private static void newUser() {
+        System.out.println("Enter login:");
+        String login = scan.next();
+
+        System.out.println("Enter password");
+        String password = scan.next();
+
         System.out.println("Enter name:");
         String name = scan.next();
 
-        System.out.println("Enter phone number:");
-        String phoneNumber = scan.next();
-
-        System.out.println("Enter email:");
-        String email = scan.next();
-        System.out.println("1. Admin\n" +
+        System.out.println(
+                "1. Admin\n" +
                 "2. Normal user");
 
         int answer = scan.nextInt();
         User usr;
         if (answer == 1) {
-            usr = new Admin(name, email, phoneNumber);
+            usr = new Admin(name, login, password);
         } else {
-            usr = new NormalUser(name, email, phoneNumber);
+            usr = new NormalUser(name, login, password);
         }
         dataBase.AddUser(usr);
-        usr.menu();
+        System.out.println(
+                "Registration completed!" +
+                "\nLogin in your account\n");
     }
 }
