@@ -16,7 +16,6 @@ public abstract class User {
         this.password = password;
     }
 
-
     public String getName() {
         return name;
     }
@@ -28,6 +27,8 @@ public abstract class User {
     public String getPassword() {
         return password;
     }
+
+    abstract public String toString();
 
     abstract public void menu(DataBase database, User user);
 }

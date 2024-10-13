@@ -1,5 +1,7 @@
 package Library;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 public class Book {
@@ -33,5 +35,10 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String toString2() {
+        String text = name + "</N>" + author;
+        return text;
     }
 }
